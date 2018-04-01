@@ -1,3 +1,32 @@
-baseURL = "http://example.org/"
+baseURL = "https://bryan.frimin.fr"
 languageCode = "en-us"
-title = "My New Hugo Site"
+builddrafts = false
+canonifyurls = false
+title = "Gearnode"
+theme = "goa"
+
+enableRobotsTXT = true
+googleAnalytics = "XXX"
+
+[params]
+author = "Bryan Frimin"
+intro = "Polyglot Software Engineer"
+description = "Now @Jobteaser. Previously @PlatoHQ and @42 School"
+authorimage = "headshot.jpg"
+dateformat = "Jan 2, 2006"
+
+[params.meta]
+description = "Bryan Frimin Blog"
+keywords = "blog,developer,bryan,frimin,gearnode"
+
+[params.social]
+github = "gearnode"
+twitter = "gearnode"
+linkedin = "gearnode"
+stackoverflow = "4649530"
+email = "public-mailbox@frimin.fr"
+
+[[menu.main]]
+name = "Blog"
+weight = 1
+url = "/posts/"
