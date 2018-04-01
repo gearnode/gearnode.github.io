@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+<meta name="description" content="Bryan Frimin Blog">
+<meta name="keywords" content="blog,developer,bryan,frimin,gearnode">
+
+<base href="https://gearnode.github.io">
+
+<title>Gearnode</title>
+
+<meta name="generator" content="Hugo 0.37.1" />
+
+
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,400|Roboto+Slab:400,700|Roboto:300,300i,400,400i,500,500i,700,700i">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://gearnode.github.io/css/main.css">
+
+
+
+
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="theme-color" content="#ffffff">
+
+</head>
+<body lang="en-us">
+<div class="container">
+
+
+<header class="row text-left title">
+  <h1 class="title">CircleCI integration for Elixir/Phoenix project</h1>
+</header>
+<section id="category-pane" class="row meta">
+  
+  <div class="col-md-12">
+    <h6 class="text-left meta">
+        PUBLISHED ON MAY 10, 2017 
+      
+      
+      
+      
+    </h6>
+  </div>
+  
+</section>
+<section id="content-pane" class="row">
+  <div class="col-md-12 text-justify content">
+    
+
+<p>At JobTeaser, we are strongly attached to use continuous integration on all our projects with all its facets; testing, linting and deploying.</p>
+
+<p>Up to now, we use CirleCI 1.0 with Ruby/Ruby on Rails, Python and JavaScript. In this context, we tried to setup continuous integration for Elixir but it does not natively support Elixir and Erlang. Looking through the documentation, we discovered CircleCI 2.0 beta with native Docker support.</p>
+
+<h2 id="stack">Stack</h2>
+
+<p>The project is an umbrella application under Elixir 1.4, Erlang/OTP 19 and Phoenix 1.3-rc as our web layer. We use PostgreSQL 9.6 as our database.</p>
+
+<h2 id="setup">Setup</h2>
+
+<p>We’ve started by subscribing to the beta. Our CircleCI 1.0 builds were not impacted.</p>
+
+<p>We were instantly able to create a project on CircleCI 2.0. We start by creating the new configuration file .circleci/config.yml for our project.</p>
+
+<p>The first step is to choose Docker images to use. According to the documentation, you can use public (e.g. Docker Hub) or private registries.</p>
+
+<pre><code class="language-yaml">docker:
+  — image: elixir:1.4.1
+    environment:
+      — MIX_ENV: test
+  — image: postgres:9.6
+</code></pre>
+
+<blockquote>
+<p>Note: as you can see, it is possible to add environment variables into containers.</p>
+</blockquote>
+
+<p>We then declare build’s steps as follow:</p>
+
+<pre><code class="language-yaml">steps:
+  — checkout
+  — run:
+    name: Install dependencies
+    command: |
+      mix local.rebar —-force
+      mix local.hex --force
+      mix deps.get
+  — run:
+    name: Run compile
+    command: mix compile
+  — run:
+    name: Run Test
+    command: mix test
+  — run:
+    name: Run Linter
+    command: mix credo --strict
+</code></pre>
+
+<p>Comparing to CircleCI 1.0, the new config starts from a blank script where you precise each step of your build. In our case, we defined 4 steps of one of the following type:</p>
+
+<ul>
+<li>checkout is a specific task which fetch code</li>
+<li>run declaration is used to invoke a command</li>
+</ul>
+
+<h2 id="install-dependencies">Install dependencies</h2>
+
+<p>In this step, we want to fetch all our dependencies. We use <code>local.rebar --force</code> and <code>local.hex --force</code> to ensure that rebar and hex are installed.</p>
+
+<blockquote>
+<p>Note: &ndash;force is used to install without prompt.</p>
+</blockquote>
+
+<p>As in local development, we call <code>deps.get</code> to fetch dependencies.</p>
+
+<h2 id="run-compile">Run compile</h2>
+
+<p>We compile before testing and linting to run these steps on the same binaries (and avoid useless recompilation).</p>
+
+<h2 id="run-test-and-run-linter">Run Test and Run Linter</h2>
+
+<p>We choose to run tests and linting for this build but you can imagine run any commands to your build.</p>
+
+<p>We are eager to ear your feedback and questions. Moreover, you can find more info about CircleCI 2.0 in its documentation.</p>
+
+  </div>
+</section>
+<section id="tag-pane" class="row meta">
+  
+  <div class="col-md-12">
+    <h6 class="text-right meta">
+      
+      
+      
+      
+    </h6>
+  </div>
+  
+</section>
+
+
+
+
+
+
+
+
+<section id="menu-pane" class="row menu text-center">
+  
+  
+  
+  
+  
+  <h4 class="text-center"><a class="menu-item" href="https://gearnode.github.io">home</a></h4>
+</section>
+
+
+
+<footer class="row text-center footer">
+  <hr />
+  
+</footer>
+
+</div>
+
+
+
+
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'XXX', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='//www.google-analytics.com/analytics.js'></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
+
+

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on Gearnode</title>
+    <link>https://gearnode.github.io/posts/</link>
+    <description>Recent content in Posts on Gearnode</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 10 May 2017 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://gearnode.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>CircleCI integration for Elixir/Phoenix project</title>
+      <link>https://gearnode.github.io/posts/2017/circle-ci-integration-for-elixir-phoenix-project/</link>
+      <pubDate>Wed, 10 May 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://gearnode.github.io/posts/2017/circle-ci-integration-for-elixir-phoenix-project/</guid>
+      <description>At JobTeaser, we are strongly attached to use continuous integration on all our projects with all its facets; testing, linting and deploying.
+Up to now, we use CirleCI 1.0 with Ruby/Ruby on Rails, Python and JavaScript. In this context, we tried to setup continuous integration for Elixir but it does not natively support Elixir and Erlang. Looking through the documentation, we discovered CircleCI 2.0 beta with native Docker support.</description>
+    </item>
+    
+  </channel>
+</rss>
