@@ -8,6 +8,9 @@ theme = "goa"
 enableRobotsTXT = true
 googleAnalytics = "XXX"
 
+[permalinks]
+  posts = "/posts/:year/:slug"
+
 [params]
 author = "Bryan Frimin"
 intro = "Polyglot Software Engineer"
