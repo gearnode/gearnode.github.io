@@ -4,6 +4,7 @@ builddrafts = false
 canonifyurls = false
 title = "Gearnode"
 theme = "goa"
+publishDir = "."
 
 enableRobotsTXT = true
 googleAnalytics = "XXX"
