@@ -7,7 +7,7 @@ theme = "goa"
 publishDir = "."
 
 enableRobotsTXT = true
-googleAnalytics = "XXX"
+googleAnalytics = "UA-116767611-1"
 
 [permalinks]
   posts = "/posts/:year/:slug"
